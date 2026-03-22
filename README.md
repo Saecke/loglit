@@ -56,6 +56,20 @@ printlog("Hello World")
 
 Same result. Zero setup.
 
+## When to use loglit
+
+- Small scripts, bots, automation
+- Quick prototyping and debugging
+- Projects where setup should be zero
+
+## When NOT to use loglit
+
+- Large applications with multiple modules and a central logger
+- Complex logging pipelines (filtering, routing, multiple sinks)
+- Centralized logging systems (ELK, Datadog, etc.)
+
+For those cases, use Python's built-in `logging` module directly.
+
 ## Installation
 
 ```bash
