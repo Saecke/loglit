@@ -60,14 +60,15 @@ def _setup_logger():
     console_handler.setFormatter(formatter)
 
     # Close old handlers before replacing (prevents file handle leaks)
-    if _file_logger:
-        for h in _file_logger.handlers:
-            h.close()
-        _file_logger.handlers.clear()
-    if _print_logger:
-        for h in _print_logger.handlers:
-            h.close()
-        _print_logger.handlers.clear()
+    if _file_logger or _print_logger:
+        closed = set()
+        for logger in (_file_logger, _print_logger):
+            if logger:
+                for h in logger.handlers:
+                    if h not in closed:
+                        h.close()
+                        closed.add(h)
+                logger.handlers.clear()
 
     # log() → file only
     _file_logger = logging.getLogger(_config["logger_name"] + ".file")
