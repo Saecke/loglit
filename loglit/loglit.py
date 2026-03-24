@@ -17,7 +17,7 @@ from datetime import datetime
 
 # --- Internal State ---
 _config = {
-    "log_dir": os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs"),
+    "log_dir": os.path.join("loglit", "logs"),
     "logger_name": "loglit",
     "log_level": logging.DEBUG,
     "log_format": "%(asctime)s - %(message)s",
