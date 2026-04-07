@@ -90,6 +90,44 @@ printlog("Written to console and log file.")
 
 Log files are created automatically with a timestamp per session.
 
+## Configure (optional)
+
+Call `configure()` before the first `log()` or `printlog()` to customize behavior:
+
+```python
+import logging
+from loglit import configure, log, printlog
+
+configure(
+    log_dir="my_logs",           # where log files are stored (default: loglit/logs/)
+    file_prefix="myapp_",        # filename prefix (default: loglit_)
+    file_suffix="_debug",        # filename suffix before extension (default: "")
+    file_extension="txt",        # file extension (default: log)
+    log_format="%(asctime)s [%(levelname)s] %(message)s",
+    date_format="%Y-%m-%d %H:%M:%S",
+    log_level=logging.DEBUG,
+    encoding="utf-8",
+)
+
+log("Only in file.", level=logging.DEBUG)
+printlog("App started.")
+printlog("Disk almost full.", level=logging.WARNING)
+```
+
+| Option | Default | Description |
+|---|---|---|
+| `log_dir` | `loglit/logs/` | Directory for log files |
+| `file_prefix` | `loglit_` | Filename prefix |
+| `file_suffix` | `""` | Filename suffix (before extension) |
+| `file_extension` | `log` | File extension |
+| `file_timestamp` | `%d-%m-%Y_%H-%M-%S` | Timestamp format in filename |
+| `log_format` | `%(asctime)s - %(message)s` | Log line format |
+| `date_format` | `%d-%m-%Y %H:%M:%S` | Timestamp format in log lines |
+| `log_level` | `logging.DEBUG` | Minimum log level |
+| `encoding` | `utf-8` | Log file encoding |
+
+Log files are named automatically, e.g. `myapp_07-04-2026_14-32-01_debug.txt`.
+
 ## Workflow
 
 Building a new function? Use `printlog()` — see what's happening live in your console while everything gets saved to the log file.
